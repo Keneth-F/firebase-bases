@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <title>Auth Vainilla JS</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand" id="nombreUsuario">Chat</span>
+        <div id="botones"></div>
+      </nav>
+    </div>
+    <main id="contenidoWeb" class="mt-2 px-2 container"></main>
+
+    <form
+      class="input-group mb-3 fixed-bottom container d-none"
+      id="formulario"
+    >
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Ingrese mensaje"
+        aria-label="Recipient's username"
+        id="texto"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">Enviar</button>
+      </div>
+    </form>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
