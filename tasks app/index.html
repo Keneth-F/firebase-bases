@@ -1,54 +1,292 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Firebase CRUD</title>
-    <link
-      rel="stylesheet"
-      href="https://bootswatch.com/5/yeti/bootstrap.min.css"
-    />
-  </head>
-
-  <body class="bg-dark">
-    <!-- ADD TASK -->
-    <div class="container p-4">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-body">
-              <h1 class="h4">Add Task</h1>
-
-              <form id="task-form">
-                <label for="title">Title:</label>
-                <input
-                  type="text"
-                  id="task-title"
-                  class="form-control mb-3"
-                  class="My First Title"
-                  placeholder="Task Title"
-                  autofocus
-                />
-
-                <label for="description">Description:</label>
-                <textarea
-                  id="task-description"
-                  rows="3"
-                  class="form-control mb-3"
-                  placeholder="Task Description"
-                ></textarea>
-
-                <button class="btn btn-primary" id="btn-task-form">Save</button>
-              </form>
-            </div>
-          </div>
-        </div>
-        <!-- Tasks List -->
-        <div class="col-md-6" id="tasks-container"></div>
+<!-- start header -->
+<header class="header">
+  <div class="header__inner container">
+    <h1 class="header__title">Html Todo-list</h1>
+    <form id="task-form" class="todo-form">
+      <div class="todo-form__group">
+        <input
+          id="task-title"
+          type="text"
+          class="todo-form__input"
+          placeholder="Todo Title..."
+        />
       </div>
-    </div>
+      <div class="todo-form__group">
+        <textarea id="task-description" class="todo-form__textarea">
+Todo Description...</textarea
+        >
+      </div>
+      <button class="btn btn--primary" id="btn-task-form">Submit</button>
+    </form>
+  </div>
+</header>
+<!-- end header -->
 
-    <!-- CUSTOM CODE -->
-    <script src="./index.js" type="module"></script>
-  </body>
-</html>
+<!-- start body -->
+<div class="body">
+  <div class="container">
+    <div class="cards">
+      <div class="cards__row" id="tasks-container"></div>
+    </div>
+  </div>
+</div>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  body,
+  * {
+    font-family: "Lato", sans-serif;
+  }
+
+  body {
+    background-color: #d6e5f3;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn {
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: #555;
+    height: 40px;
+    padding: 0 1rem;
+    border-radius: 4px;
+    line-height: 40px;
+    cursor: pointer;
+  }
+
+  .btn--primary {
+    background-color: #007fff;
+    color: #fff;
+  }
+
+  @media only screen and (max-width: 1140px) {
+    .container {
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+  }
+
+  /* Header */
+  .header {
+    background-color: #fff;
+    padding: 1.5rem 0;
+  }
+
+  .header .header__inner {
+    margin: auto;
+    width: 100%;
+    max-width: 540px;
+  }
+
+  .header .header__title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #007fff;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .header .header__filters {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  .todo-form {
+    width: 100%;
+  }
+
+  .todo-form .todo-form__group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+
+  .todo-form .todo-form__input,
+  .todo-form .todo-form__textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+    font-size: 14px;
+    color: #555;
+    font-weight: 700;
+    outline: 0;
+    -webkit-transition: border 0.05s ease-in;
+    transition: border 0.05s ease-in;
+  }
+
+  .todo-form .todo-form__input:focus,
+  .todo-form .todo-form__textarea:focus {
+    border: 2px solid #007fff;
+  }
+
+  .todo-form .todo-form__input {
+    height: 40px;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .todo-form .todo-form__input::-webkit-input-placeholder {
+    font-size: 14px;
+    color: #555;
+    font-weight: 700;
+  }
+
+  .todo-form .todo-form__input:-ms-input-placeholder {
+    font-size: 14px;
+    color: #555;
+    font-weight: 700;
+  }
+
+  .todo-form .todo-form__input::-ms-input-placeholder {
+    font-size: 14px;
+    color: #555;
+    font-weight: 700;
+  }
+
+  .todo-form .todo-form__input::placeholder {
+    font-size: 14px;
+    color: #555;
+    font-weight: 700;
+  }
+
+  .todo-form .todo-form__textarea {
+    height: 90px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  /* body */
+  .body {
+    width: 100%;
+    padding: 1.5rem 0;
+  }
+
+  /* cards */
+  .cards {
+    width: 100%;
+  }
+
+  .cards .cards__row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 32%;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+      0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    border-radius: 4px;
+    padding: 1rem 0.5rem;
+    margin: 1rem;
+    position: relative;
+    background-color: #fff;
+  }
+
+  .card .card__header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    align-items: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+  }
+
+  .card .card__title {
+    font-size: 16px;
+    color: #555;
+    font-weight: 700;
+  }
+
+  .card .card__remove-icon {
+    border-radius: 0.5rem;
+  }
+
+  .card .card__remove-icon span {
+    font-size: 18px;
+    color: #555;
+    -webkit-transition: 0.1s ease-in;
+    transition: 0.1s ease-in;
+  }
+
+  .card .card__remove-icon:hover {
+    background: #ff7878;
+  }
+  .card .btn-edit {
+    border-radius: 0.5rem;
+    margin: 0.5rem;
+  }
+
+  .card .btn-edit span {
+    font-size: 18px;
+    color: #555;
+    -webkit-transition: 0.1s ease-in;
+    transition: 0.1s ease-in;
+  }
+
+  .card .btn-edit:hover {
+    background: blue;
+  }
+
+  .card .card__body {
+    margin-top: 0.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .card .card__text {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  @media only screen and (max-width: 994px) {
+    .card {
+      width: 48%;
+    }
+  }
+
+  @media only screen and (max-width: 660px) {
+    .card {
+      width: 100%;
+    }
+  }
+</style>
+<script src="./index.js" type="module"></script>

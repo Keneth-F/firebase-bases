@@ -24,21 +24,38 @@ window.addEventListener("DOMContentLoaded", async (e) => {
       const task = doc.data();
 
       tasksContainer.innerHTML += `
-      <div class="card card-body mt-2 border-primary">
-    <h3 class="h5">${task.title}</h3>
-    <p>${task.description}</p>
-    <div>
-      <button class="btn btn-primary btn-delete" data-id="${doc.id}">
-        🗑 Delete
+
+      <div class="card">
+      <div class="card__header">
+        <h3 class="card__title">${task.title}</h3>
+        <div >
+        <button class="btn card__remove-icon" data-id="${doc.id}">
+        <span>X</span>
+        <button class="btn btn-edit" data-id="${doc.id}">
+        <span>🖉</span> 
+        </button>
       </button>
-      <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
-        🖉 Edit
-      </button>
-    </div>
-  </div>`;
+        </div>
+      </div>
+      <div class="card__body">
+        <p class="card__text">${task.description}</p>
+      </div>
+      
+    </div>`;
     });
 
-    const btnsDelete = tasksContainer.querySelectorAll(".btn-delete");
+    //   <div class="card card-body mt-2 border-primary">
+    //   <h3 class="h5"></h3>
+    //   <p></p>
+    //   <div>
+
+    //     <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
+    //       🖉 Edit
+    //     </button>
+    //   </div>
+    // </div>
+
+    const btnsDelete = tasksContainer.querySelectorAll(".card__remove-icon");
     btnsDelete.forEach((btn) =>
       btn.addEventListener("click", async ({ target: { dataset } }) => {
         try {
@@ -74,7 +91,7 @@ taskForm.addEventListener("submit", async (e) => {
 
   const title = taskForm["task-title"];
   const description = taskForm["task-description"];
-
+  console.log(title, description);
   try {
     if (!editStatus) {
       await saveTask(title.value, description.value);
